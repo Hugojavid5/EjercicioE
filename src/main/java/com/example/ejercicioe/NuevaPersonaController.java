@@ -4,6 +4,7 @@ import Model.Persona;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -29,7 +30,11 @@ public class NuevaPersonaController {
 
     /** Referencia a la tabla de personas en la ventana principal. */
     private TableView<Persona> tablaPersonas;
+    @FXML
+    private Button btt_modificar;
 
+    @FXML
+    private Button btt_eliminar;
     /**
      * Establece la referencia de la tabla de personas para que este controlador
      * pueda añadir personas directamente a la tabla.
