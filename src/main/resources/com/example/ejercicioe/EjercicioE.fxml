@@ -23,7 +23,7 @@
                 </TableView>
                 <Button id="btt_agregarPersona" fx:id="btt_agregar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#agregar" text="Agregar Persona" />
                 <Button fx:id="btt_modificar" mnemonicParsing="false" onAction="#abrirVentanaModificar" text="Modificar Persona" />
-                <Button fx:id="btt_eliminar" mnemonicParsing="false" onAction="#eliminarPersona" text="Eliminar persona" />
+                <Button fx:id="btt_eliminar" mnemonicParsing="false" onAction="#eliminar" text="Eliminar persona" />
             </children>
             <opaqueInsets>
                 <Insets />
