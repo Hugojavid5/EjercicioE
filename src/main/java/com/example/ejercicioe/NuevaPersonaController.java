@@ -8,6 +8,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Controlador para gestionar la ventana de agregar o editar una persona.
+ * Permite al usuario ingresar y guardar la información de una nueva persona o modificar una existente.
+ */
 public class NuevaPersonaController {
 
     @FXML
@@ -19,13 +23,25 @@ public class NuevaPersonaController {
     @FXML
     private TextField txt_Nombre;
 
+    /** Lista observable de personas a la cual se añadirá o modificará una persona. */
     private ObservableList<Persona> personasList;
+
+    /** Persona seleccionada para edición; null si se está agregando una nueva persona. */
     private Persona personaAEditar;
 
+    /**
+     * Establece la lista observable de personas.
+     * @param personasList Lista observable donde se almacenan las personas.
+     */
     public void setPersonasList(ObservableList<Persona> personasList) {
         this.personasList = personasList;
     }
 
+    /**
+     * Establece la persona a editar y carga sus datos en los campos de texto.
+     * Si la persona es null, se asume que se va a crear una nueva persona.
+     * @param persona Persona seleccionada para editar, o null si es una nueva persona.
+     */
     public void setPersonaAEditar(Persona persona) {
         this.personaAEditar = persona;
         if (persona != null) {
@@ -35,6 +51,11 @@ public class NuevaPersonaController {
         }
     }
 
+    /**
+     * Guarda la nueva persona o actualiza la información de la persona existente.
+     * Realiza validación de los campos y muestra mensajes de error si hay entradas inválidas.
+     * @param event Evento de acción que dispara el método al hacer clic en el botón de guardar.
+     */
     @FXML
     void guardar(ActionEvent event) {
         String error = "";
@@ -81,16 +102,27 @@ public class NuevaPersonaController {
         }
     }
 
+    /**
+     * Cancela la operación y cierra la ventana sin guardar los cambios.
+     * @param event Evento de acción que dispara el método al hacer clic en el botón de cancelar.
+     */
     @FXML
     void cancelar(ActionEvent event) {
         cerrarVentana();
     }
 
+    /**
+     * Cierra la ventana actual.
+     */
     private void cerrarVentana() {
         Stage stage = (Stage) txt_Nombre.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Muestra una alerta de error con un mensaje especificado.
+     * @param error Mensaje de error a mostrar en la alerta.
+     */
     private void mostrarError(String error) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
@@ -99,6 +131,10 @@ public class NuevaPersonaController {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra una alerta de información con un mensaje especificado.
+     * @param info Mensaje informativo a mostrar en la alerta.
+     */
     private void mostrarInfo(String info) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
