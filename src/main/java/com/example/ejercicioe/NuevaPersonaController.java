@@ -1,11 +1,10 @@
 package com.example.ejercicioe;
 
 import Model.Persona;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -20,12 +19,11 @@ public class NuevaPersonaController {
     @FXML
     private TextField txt_Nombre;
 
-    private TableView<Persona> tablaPersonas;
-
+    private ObservableList<Persona> personasList;
     private Persona personaAEditar;
 
-    public void setTablaPersonas(TableView<Persona> tablaPersonas) {
-        this.tablaPersonas = tablaPersonas;
+    public void setPersonasList(ObservableList<Persona> personasList) {
+        this.personasList = personasList;
     }
 
     public void setPersonaAEditar(Persona persona) {
@@ -62,23 +60,22 @@ public class NuevaPersonaController {
 
         if (error.isEmpty()) {
             if (personaAEditar != null) {
+                // Editar persona existente
                 personaAEditar.setNombre(txt_Nombre.getText());
                 personaAEditar.setApellidos(txt_Apellidos.getText());
                 personaAEditar.setEdad(Integer.parseInt(txt_Edad.getText()));
-                tablaPersonas.refresh();
                 mostrarInfo("Persona editada correctamente");
             } else {
-                Persona p = new Persona(txt_Nombre.getText(), txt_Apellidos.getText(), Integer.parseInt(txt_Edad.getText()));
-                if (!tablaPersonas.getItems().contains(p)) {
-                    tablaPersonas.getItems().add(p);
-                    tablaPersonas.refresh();
+                // Agregar nueva persona
+                Persona nuevaPersona = new Persona(txt_Nombre.getText(), txt_Apellidos.getText(), Integer.parseInt(txt_Edad.getText()));
+                if (!personasList.contains(nuevaPersona)) {
+                    personasList.add(nuevaPersona);
                     mostrarInfo("Persona añadida correctamente");
                 } else {
-                    mostrarError("Esa persona ya existe en la tabla");
+                    mostrarError("Esa persona ya existe en la lista");
                 }
             }
-            Stage stage = (Stage) txt_Nombre.getScene().getWindow();
-            stage.close();
+            cerrarVentana();
         } else {
             mostrarError(error);
         }
@@ -86,11 +83,15 @@ public class NuevaPersonaController {
 
     @FXML
     void cancelar(ActionEvent event) {
+        cerrarVentana();
+    }
+
+    private void cerrarVentana() {
         Stage stage = (Stage) txt_Nombre.getScene().getWindow();
         stage.close();
     }
 
-    void mostrarError(String error) {
+    private void mostrarError(String error) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setTitle("Error");
@@ -98,7 +99,7 @@ public class NuevaPersonaController {
         alert.showAndWait();
     }
 
-    void mostrarInfo(String info) {
+    private void mostrarInfo(String info) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle("Info");
